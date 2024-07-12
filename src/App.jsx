@@ -1,6 +1,6 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import HomePage from "./components/HomePage";
+import HomePage from "./pages/HomePage";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
@@ -12,7 +12,7 @@ function App() {
     <div className="App">
     <HomePage />
     </div>
-  );
+  )
 }
 
 export default App;

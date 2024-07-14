@@ -1,7 +1,5 @@
 import React from "react";
-
 import "./index.css";
-
 import BlogItem from "../BlogItem";
 
 export default function BlogGrid({ blogPosts }) {

@@ -8,7 +8,6 @@ import "./index.css";
 export default function BlogItem({
   index,
   blogPost,
-  setBlog,
   imageOrientation,
 }) {
   if (imageOrientation === "top") {

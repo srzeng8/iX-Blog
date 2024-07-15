@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
 import Heading from "../../components/Heading";
+import SubHeading from "../../components/SubHeading";
 import CategoryList from "../../components/CategoryList";
 import Footer from "../../components/Footer";
 
@@ -13,9 +14,10 @@ export default function CategoriesPage() {
       <Navbar />
       <div className="container">
         <Heading />
+        <SubHeading />
         <CategoryList categories={categories} />
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 }

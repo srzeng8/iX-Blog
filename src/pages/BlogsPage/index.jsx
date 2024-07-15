@@ -11,7 +11,7 @@ import "./index.css";
 
 // Importing dummy data
 const data = require("../../dummy-data.json");
-let blogPosts = data.blogPosts;
+const blogPosts = data.blogPosts;
 const categories = data.categories;
 
 export default function BlogsPage() {

@@ -1,23 +1,31 @@
-// import logo from './logo.svg';
-import './App.css';
+import React from "react";
+
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import HomePage from "./pages/HomePage";
-import Blogs from "./pages/BlogsPage";
-import Categories from "./pages/CategoriesPage";
+import BlogsPage from "./pages/BlogsPage";
+import CategoriesPage from "./pages/CategoriesPage";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.min.js";
-import "bootstrap/dist/js/bootstrap.bundle.min";
-import "bootstrap-icons/font/bootstrap-icons.css";
-
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomePage />,
+  },
+  {
+    path: "/home",
+    element: <HomePage />,
+  },
+  {
+    path: "/categories",
+    element: <CategoriesPage />,
+  },
+  {
+    path: "/blogs/:categoryId?",
+    element: <BlogsPage />,
+  },
+]);
 function App() {
-  return (
-    <div className="App">
-    <HomePage/>
-    <Blogs/>
-    <Categories/>
-
-    </div>
-  )
+  return <RouterProvider router={router} />;
 }
 
 export default App;

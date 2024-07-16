@@ -5,4 +5,5 @@
   text-align: left;
   border-radius: 14px;
   white-space: nowrap;
+  width: fit-content;
 }

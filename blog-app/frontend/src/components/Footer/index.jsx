@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
 
 export default function Footer() {
@@ -8,19 +7,19 @@ export default function Footer() {
       <footer className="py-3 my-4">
         <ul className="nav justify-content-center border-bottom pb-3 mb-3">
           <li className="nav-item">
-            <a href="#" className="nav-link px-2 text-muted">
+            <Link to="/home" className="nav-link px-2 text-muted">
               Home
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link px-2 text-muted">
+            <Link to="/categories" className="nav-link px-2 text-muted">
               Categories
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link px-2 text-muted">
+            <Link to="/blogs" className="nav-link px-2 text-muted">
               Blogs
-            </a>
+            </Link>
           </li>
         </ul>
         <p className="text-center text-muted">&copy; 2024 The Blog App, Inc</p>

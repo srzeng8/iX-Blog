@@ -4,13 +4,13 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import BlogList from "../../components/BlogList";
 import Footer from "../../components/Footer";
-import Loading from "../../components/Loading";
+import Loader from "../../components/Loader";
 import AddEditBlogModal from "../../components/AddEditBlogModal";
 import DeleteBlogModal from "../../components/DeleteBlogModal";
 import SuccessToast from "../../components/SuccessToast";
 import ErrorToast from "../../components/ErrorToast";
 
-import blogService from "../../services/blogService";
+import blogService from "../../services/blogsService";
 
 export default function ProfilePage() {
   const { authorId } = useParams();
@@ -32,7 +32,7 @@ export default function ProfilePage() {
     const fetchAuthorBlogs = async () => {
       try {
         setIsLoading(true);
-        const blogs = await blogService.fetchBlogsByAuthorId(authorId);
+        const blogs = await blogService.getBlogsByAuthorId(authorId);
         setBlogs(blogs.data);
         setIsLoading(false);
       } catch (error) {
@@ -71,7 +71,7 @@ export default function ProfilePage() {
   };
 
   if (isLoading) {
-    return <Loading />;
+    return <Loader />;
   }
 
   return (

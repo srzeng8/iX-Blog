@@ -37,7 +37,7 @@ const routes = [
     element: <BlogPage />,
   },
   {
-    path: "/profile",
+    path: "/profile/:authorId",
     element: <ProfilePage />,
   },
 ];

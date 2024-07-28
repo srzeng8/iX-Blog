@@ -18,6 +18,8 @@ import blogsService from "../../services/blogsService";
 import categoriesService from "../../services/categoryService";
 
 export default function BlogsPage() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const { categoryId } = useParams();
 
   const [loading, setLoading] = useState(false);
@@ -62,7 +64,7 @@ export default function BlogsPage() {
           sectionText: "",
         },
       ],
-      authorId: "",
+      authorId: JSON.parse(localStorage.getItem("user"))?._id,
     });
   };
   const onBlogEdit = (blog) => {
@@ -149,7 +151,7 @@ export default function BlogsPage() {
         </div>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <p className="page-subtitle">Blog Posts</p>
-          <AddButton />
+          {user && user?.token && <AddButton />}
         </div>
         <BlogList
           blogs={blogs}

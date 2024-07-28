@@ -16,6 +16,8 @@ import ErrorToast from "../../components/ErrorToast";
 import DeleteCategoryModal from "../../components/DeleteCategoryModal";
 
 export default function CategoriesPage() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const [isSuccess, setIsSuccess] = useState();
   const [isError, setIsError] = useState();
   const [message, setMessage] = useState();
@@ -122,7 +124,7 @@ export default function CategoriesPage() {
         <Heading />
         <div className="flex-sub-heading">
           <Subheading subHeading={"Categories"} />
-          <AddButton />
+          {user && user.token && <AddButton />}
         </div>
 
         <CategoriesList

@@ -4,11 +4,12 @@ const createCategory = async (category) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("user"))?.token,
       },
       body: JSON.stringify(category),
     });
     if (!data.ok) {
-      console.log(data.statusText);
       throw Error(data.statusText);
     }
     const res = await data.json();
@@ -45,6 +46,8 @@ const updateCategory = async (category) => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization:
+            "Bearer " + JSON.parse(localStorage.getItem("user"))?.token,
         },
         body: JSON.stringify(category),
       }
@@ -68,6 +71,8 @@ const deleteCategory = async (category) => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization:
+            "Bearer " + JSON.parse(localStorage.getItem("user"))?.token,
         },
       }
     );

@@ -3,10 +3,13 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import "./index.css";
+import EditButtons from "../EditButtons";
 
-export default function CategoriesList({ categories }) {
+export default function CategoriesList({ categories, onEdit, onDelete }) {
+  const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
   const navigateToBlog = (categoryId) => {
+    if (onEdit && onDelete) return;
     navigate("/blogs/" + categoryId);
   };
   if (!categories) {
@@ -40,6 +43,19 @@ export default function CategoriesList({ categories }) {
                 {category.description.substring(1, 100)} ...
               </p>
             </div>
+            {onEdit && onDelete && user && user.token && (
+              <EditButtons
+                onNavigate={() => {
+                  navigate("/blogs/" + category.id);
+                }}
+                onEdit={() => {
+                  onEdit(category);
+                }}
+                onDelete={() => {
+                  onDelete(category);
+                }}
+              />
+            )}
           </button>
         );
       })}
@@ -49,4 +65,6 @@ export default function CategoriesList({ categories }) {
 
 CategoriesList.prototype = {
   categories: PropTypes.array.isRequired,
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
 };

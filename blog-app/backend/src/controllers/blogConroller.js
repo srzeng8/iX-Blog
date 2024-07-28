@@ -2,6 +2,8 @@ const Blog = require("../models/Blog");
 
 const createBlog = async (req, res) => {
   try {
+    const user = req.user;
+    console.log(user);
     const categoryIds = req.body.categories.map((category) => {
       return category.id;
     });
@@ -10,7 +12,7 @@ const createBlog = async (req, res) => {
       description: req.body.description,
       content: req.body.content,
       categoryIds: categoryIds,
-      // authorId: req.body.authorId,
+      authorId: req.body.authorId,
       image: req.body.image,
     });
     const newBlog = await blog.save();
@@ -73,7 +75,9 @@ const getBlogByCategoryId = async (req, res) => {
       .populate({
         path: "categoryIds",
       });
-    res.status(200).send({ message: "Return blog by ID!", data: blogsRed });
+    res
+      .status(200)
+      .send({ message: "Return blog by category ID!", data: blogsRed });
   } catch (error) {
     const message = error?.message ? error.message : "Internal server error";
     res.status(500).json({ message });
@@ -84,7 +88,7 @@ const getBlogByAuthorId = async (req, res) => {
   try {
     let filter = {};
     if (req.params.id != "null" && req.params.id != "undefined") {
-      filter = { "author.id": req.params.id };
+      filter = { authorId: req.params.id };
     }
     const blogsRed = await Blog.find(filter)
       .populate({
@@ -93,7 +97,9 @@ const getBlogByAuthorId = async (req, res) => {
       .populate({
         path: "categoryIds",
       });
-    res.status(200).send({ message: "Return blog by ID!", data: blogsRed });
+    res
+      .status(200)
+      .send({ message: "Return blog by authorID!", data: blogsRed });
   } catch (error) {
     const message = error?.message ? error.message : "Internal server error";
     res.status(500).json({ message });
@@ -106,7 +112,7 @@ const updateBlogById = async (req, res) => {
       path: "categoryIds",
     });
     if (blog) {
-      // blog.authorId = req?.body?.authorId || blog.authorId;
+      blog.authorId = req?.body?.authorId || blog.authorId;
       blog.categoryIds =
         req?.body?.categories?.map((category) => category.id) ||
         blog.categoryIds;

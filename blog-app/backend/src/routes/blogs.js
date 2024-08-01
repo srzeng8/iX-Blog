@@ -1,6 +1,7 @@
 const express = require("express");
 const blogsController = require("../controllers/blogController");
 const { protect } = require("../middleware/authMiddleware");
+const { upload } = require("../middleware/multer")
 
 const router = express.Router();
 

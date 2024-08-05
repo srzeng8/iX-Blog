@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { Modal } from "bootstrap";
-import PropType from "prop-types";
 
 export default function AddEditCategoryModal({
   addCategory,
@@ -23,12 +22,20 @@ export default function AddEditCategoryModal({
   useEffect(() => {
     if (addCategory) {
       setCategory(addCategory);
-      addEditCategoryModal.show();
+      addEditCategoryModal?.show();
     } else if (editCategory) {
       setCategory(editCategory);
-      addEditCategoryModal.show();
+      addEditCategoryModal?.show();
     }
-  }, [addCategory, editCategory, addEditCategoryModal]);
+  }, [addEditCategoryModal, addCategory, editCategory]);
+
+  const resetCategory = () => {
+    setCategory({
+      title: "",
+      description: "",
+      color: "",
+    });
+  };
 
   const onSubmit = (e) => {
     e?.preventDefault();
@@ -47,14 +54,6 @@ export default function AddEditCategoryModal({
     resetCategory();
     onClose();
     addEditCategoryModal.hide();
-  };
-
-  const resetCategory = () => {
-    setCategory({
-      title: "",
-      description: "",
-      color: "",
-    });
   };
 
   const isFormValid = () => {
@@ -155,11 +154,3 @@ export default function AddEditCategoryModal({
     </div>
   );
 }
-
-AddEditCategoryModal.prototype = {
-  addCategory: PropType.object.isRequired,
-  editCategory: PropType.object.isRequired,
-  createCategory: PropType.func.isRequired,
-  updateCategory: PropType.func.isRequired,
-  onClose: PropType.func.isRequired,
-};

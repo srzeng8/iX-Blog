@@ -44,9 +44,3 @@ export default function ErrorToast({ show, message, onClose }) {
     </div>
   );
 }
-
-ErrorToast.propTypes = {
-  show: PropTypes.bool.isRequired,
-  message: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
-};

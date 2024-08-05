@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import SuccessToast from "../../components/SuccessToast";
 import ErrorToast from "../../components/ErrorToast";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loading";
 
 import "./index.css";
 

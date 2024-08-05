@@ -4,19 +4,24 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import BlogList from "../../components/BlogList";
 import Footer from "../../components/Footer";
-import Loader from "../../components/Loader";
+import Loading from "../../components/Loading";
 import AddEditBlogModal from "../../components/AddEditBlogModal";
 import DeleteBlogModal from "../../components/DeleteBlogModal";
 import SuccessToast from "../../components/SuccessToast";
 import ErrorToast from "../../components/ErrorToast";
 
-import blogService from "../../services/blogsService";
-import authService from "../../services/authService";
+import blogService from "../../services/blogService";
 
 export default function ProfilePage() {
   const { authorId } = useParams();
 
-  const [author, setAuthor] = useState();
+  const [author, setAuthor] = useState({
+    id: 1,
+    firstName: "Byron",
+    lastName: "de Villiers",
+    bio: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    image: "https://storage.googleapis.com/ix-blog-app/download.png",
+  });
   const [blogs, setBlogs] = useState([]);
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -27,9 +32,7 @@ export default function ProfilePage() {
     const fetchAuthorBlogs = async () => {
       try {
         setIsLoading(true);
-        const author = await authService.getUser(authorId);
-        const blogs = await blogService.getBlogsByAuthorId(authorId);
-        setAuthor(author.data);
+        const blogs = await blogService.fetchBlogsByAuthorId(authorId);
         setBlogs(blogs.data);
         setIsLoading(false);
       } catch (error) {
@@ -68,11 +71,7 @@ export default function ProfilePage() {
   };
 
   if (isLoading) {
-    return <Loader />;
-  }
-
-  if (!author) {
-    return null;
+    return <Loading />;
   }
 
   return (

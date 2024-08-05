@@ -1,36 +1,31 @@
 const express = require("express");
-const blogsController = require("../controllers/blogController");
-const { protect } = require("../middleware/authMiddleware");
-const { upload } = require("../middleware/multer")
-
 const router = express.Router();
+const {
+  createBlog,
+  getBlogs,
+  getBlog,
+  updateBlog,
+  deleteBlog,
+} = require("../controllers/blogs");
 
-router.post("/", protect, (req, res) => {
-  blogsController.createBlog(req, res);
+router.post("/", (req, res) => {
+  createBlog(req, res);
 });
 
 router.get("/", (req, res) => {
-  blogsController.getBlogs(req, res);
+  getBlogs(req, res);
 });
 
 router.get("/:id", (req, res) => {
-  blogsController.getBlogById(req, res);
+  getBlog(req, res);
 });
 
-router.get("/category/:id", (req, res) => {
-  blogsController.getBlogByCategoryId(req, res);
+router.put("/:id", (req, res) => {
+  updateBlog(req, res);
 });
 
-router.get("/author/:id", (req, res) => {
-  blogsController.getBlogByAuthorId(req, res);
-});
-
-router.put("/:id", protect, (req, res) => {
-  blogsController.updateBlogById(req, res);
-});
-
-router.delete("/:id", protect, (req, res) => {
-  blogsController.deleteBlogById(req, res);
+router.delete("/:id", (req, res) => {
+  deleteBlog(req, res);
 });
 
 module.exports = router;

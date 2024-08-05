@@ -1,51 +1,62 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+
+import { useParams, useNavigate, Link } from "react-router-dom";
+
+import Navbar from "../../components/Navbar";
+
+import Categories from "../../components/Categories";
+import Footer from "../../components/Footer";
+
+import blogService from "../../services/blogService";
+import SuccessToast from "../../components/SuccessToast";
+import ErrorToast from "../../components/ErrorToast";
+import Loading from "../../components/Loading";
 
 import "./index.css";
 
-import Categories from "../../components/Categories";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-
-import blogsService from "../../services/blogsService";
-import SuccessToast from "../../components/SuccessToast";
-import ErrorToast from "../../components/ErrorToast";
-import Loader from "../../components/Loader";
-
 export default function BlogPage() {
-  const { blogId } = useParams();
   const navigate = useNavigate();
+  const { blogId } = useParams();
 
-  const [loading, setLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [blog, setBlog] = useState(null);
   const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
-
-  const [blog, setBlog] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
-        const res = await blogsService.getBlogById(blogId);
-        setBlog(res.data);
-        setLoading(false);
+        setIsLoading(true);
+        const blog = await blogService.fetchBlogByID(blogId);
+        setBlog(blog.data);
+        setMessage(blog.message);
+        setIsLoading(false);
       } catch (error) {
-        setMessage(error.message);
         setIsError(true);
-        setLoading(false);
+        setMessage(error.message || error);
+        setIsLoading(false);
       }
     };
-
     fetchData();
   }, [blogId]);
+
+  const resetSuccess = () => {
+    setIsSuccess(false);
+    setMessage("");
+  };
+
+  const resetError = () => {
+    setIsError(false);
+    setMessage("");
+  };
 
   const navigateToAuthorProfile = () => {
     navigate("/profile/" + blog.author.id);
   };
 
-  if (loading || !blog) {
-    return <Loader />;
+  if (isLoading || !blog) {
+    return <Loading />;
   }
 
   return (
@@ -65,7 +76,7 @@ export default function BlogPage() {
                   </Link>
                 </p>
                 <p>{blog.description}</p>
-                <Categories blog={blog} />
+                <Categories blogPost={blog} />
               </div>
               <hr />
               {blog.content.map((content, index) => {
@@ -90,20 +101,8 @@ export default function BlogPage() {
         </div>
       </main>
       <Footer />
-      <SuccessToast
-        show={isSuccess}
-        message={message}
-        onClose={() => {
-          setIsSuccess(false);
-        }}
-      />
-      <ErrorToast
-        show={isError}
-        message={message}
-        onClose={() => {
-          setIsError(false);
-        }}
-      />
+      <SuccessToast show={isSuccess} message={message} onClose={resetSuccess} />
+      <ErrorToast show={isError} message={message} onClose={resetError} />
     </>
   );
 }

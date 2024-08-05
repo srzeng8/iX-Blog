@@ -25,10 +25,10 @@ export default function AddEditBlogModal({
   useEffect(() => {
     if (addBlog) {
       setBlog(addBlog);
-      addEditModal?.show();
+      addEditModal.show();
     } else if (editBlog) {
       setBlog(editBlog);
-      addEditModal?.show();
+      addEditModal.show();
     }
   }, [addBlog, editBlog, addEditModal]);
 
@@ -50,12 +50,7 @@ export default function AddEditBlogModal({
       title: "",
       description: "",
       categories: [],
-      content: [
-        {
-          sectionHeader: "",
-          sectionText: "",
-        },
-      ],
+      content: [],
       authorId: "",
     });
   };
@@ -72,11 +67,16 @@ export default function AddEditBlogModal({
     onClose();
   };
 
+  if (!categories && !categories?.length) {
+    return null;
+  }
+
   return (
     <div>
       <div
         className="modal fade"
         id="addEditModal"
+        tabindex="-1"
         aria-labelledby="addEditModalLabel"
         aria-hidden="true"
       >
@@ -134,7 +134,7 @@ export default function AddEditBlogModal({
                 </div>
                 <div className="mb-3">
                   <Categories
-                    blog={blog}
+                    categories={blog?.categories}
                     removeCategory={(category) => {
                       setBlog({
                         ...blog,
@@ -303,7 +303,7 @@ export default function AddEditBlogModal({
               </button>
               <button
                 type="button"
-                className="btn btn-outline-success"
+                className="btn btn-primary"
                 onClick={onSubmit}
               >
                 Save changes

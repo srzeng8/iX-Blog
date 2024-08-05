@@ -5,7 +5,7 @@ import "./index.css";
 
 import SuccessToast from "../../components/SuccessToast";
 import ErrorToast from "../../components/ErrorToast";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loading";
 import authService from "../../services/authService";
 
 export default function RegisterPage() {

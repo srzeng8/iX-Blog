@@ -5,7 +5,7 @@ import "./index.css";
 
 import SuccessToast from "../../components/SuccessToast";
 import ErrorToast from "../../components/ErrorToast";
-import Loader from "../../components/Loading";
+import Loading from "../../components/Loading";
 import authService from "../../services/authService";
 
 export default function RegisterPage() {
@@ -49,7 +49,7 @@ export default function RegisterPage() {
   };
 
   if (loading) {
-    return <Loader />;
+    return <Loading />;
   }
 
   return (

@@ -1,30 +1,25 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import "./index.css";
 import EditButtons from "../EditButtons";
 
 export default function CategoriesList({ categories, onEdit, onDelete }) {
-  const navigate = useNavigate();
-
+  const user = JSON.parse(localStorage.getItem("user"))
   if (!categories && !categories?.length) {
     return null;
   }
-
-  const navigateToCategory = (category) => {
-    navigate(`/blogs/${category.id}`);
-  };
 
   return (
     <div className="category-list">
       {categories.map((category) => {
         return (
-          <button
+          <Link
             key={category.id}
             className="card"
-            style={{ borderRadius: "0px", border: "none", padding: 0 }}
-            onClick={() => navigateToCategory(category)}
+            style={{ borderRadius: "0px", border: "none" }}
+            to={`/categories`}
           >
             <div
               className="card-body w-100"
@@ -41,15 +36,15 @@ export default function CategoriesList({ categories, onEdit, onDelete }) {
                 {category.description.substring(1, 100)} ...
               </p>
             </div>
-              <EditButtons
-                onEdit={() => {
-                  onEdit(category);
-                }}
-                onDelete={() => {
-                  onDelete(category);
-                }}
-              />
-          </button>
+            {user && user.token && onEdit && onDelete && (
+              <EditButtons onEdit={()=>{
+                onEdit(category);
+              
+              }} onDelete={()=>{
+                onDelete(category);
+              }} />
+            )}
+          </Link>
         );
       })}
     </div>

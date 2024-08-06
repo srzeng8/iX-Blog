@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import SuccessToast from "../../components/SuccessToast";
 import ErrorToast from "../../components/ErrorToast";
-import Loader from "../../components/Loading";
+import Loading from "../../components/Loading";
 
 import "./index.css";
 
@@ -48,7 +48,7 @@ export default function LoginPage() {
   };
 
   if (loading) {
-    return <Loader />;
+    return <Loading />;
   }
 
   return (

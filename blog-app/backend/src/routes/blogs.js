@@ -1,31 +1,28 @@
-const express = require("express");
-const router = express.Router();
-const {
-  createBlog,
-  getBlogs,
-  getBlog,
-  updateBlog,
-  deleteBlog,
-} = require("../controllers/blogs");
+// const express = require("express");
+// const router = express.Router();
 
-router.post("/", (req, res) => {
-  createBlog(req, res);
-});
+// const blogController = require("../controllers/blogs");
 
-router.get("/", (req, res) => {
-  getBlogs(req, res);
-});
+// const { protect } = require("../middleware/authMiddleware");
 
-router.get("/:id", (req, res) => {
-  getBlog(req, res);
-});
+// router.post("/", protect, (req, res) => {
+//   createBlog(req, res);
+// });
 
-router.put("/:id", (req, res) => {
-  updateBlog(req, res);
-});
+// router.get("/", (req, res) => {
+//   getBlogs(req, res);
+// });
 
-router.delete("/:id", (req, res) => {
-  deleteBlog(req, res);
-});
+// router.get("/:id", (req, res) => {
+//   getBlog(req, res);
+// });
 
-module.exports = router;
+// router.put("/:id", protect, (req, res) => {
+//   updateBlog(req, res);
+// });
+
+// router.delete("/:id", protect, (req, res) => {
+//   deleteBlog(req, res);
+// });
+
+// module.exports = router;

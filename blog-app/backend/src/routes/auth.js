@@ -1,22 +1,14 @@
 // const express = require("express");
-// const authController = require("../controllers/authController");
-
 // const router = express.Router();
 
-// router.post("/register", (req, res) => {
-//   authController.register(req, res);
-// });
+// const { login, register } = require("../controllers/authController");
 
 // router.post("/login", (req, res) => {
-//   authController.login(req, res);
+//   login(req, res);
 // });
 
-// router.get("/user/:id", (req, res) => {
-//   authController.getUser(req, res);
-// });
-
-// router.put("/user/:id", (req, res) => {
-//   authController.updateUser(req, res);
+// router.post("/register", (req, res) => {
+//   register(req, res);
 // });
 
 // module.exports = router;

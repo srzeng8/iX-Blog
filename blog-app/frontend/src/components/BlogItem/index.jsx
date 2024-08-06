@@ -13,6 +13,7 @@ export default function BlogItem({
   onBlogEdit,
   onBlogDelete,
 }) {
+  const user = JSON.parse(localStorage.getItem("user"))
   const EditButtonsContainer = () => {
     return (
       <EditButtons
@@ -46,7 +47,7 @@ export default function BlogItem({
         <img src={blog.image} className="card-img-left" alt="..." />
         <div style={{ position: "relative" }} className="card-text-right">
           <BlogItemText blog={blog} headerFontSize="20px" />
-          {onBlogEdit && onBlogDelete ? <EditButtonsContainer /> : null}
+          {user && user.token && onBlogEdit && onBlogDelete ? <EditButtonsContainer /> : null}
         </div>
       </div>
     );

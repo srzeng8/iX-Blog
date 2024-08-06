@@ -13,6 +13,7 @@ import AddEditCategoryModal from "../../components/AddEditCategoryModal";
 import DeleteCategoryModal from "../../components/DeleteCategoryModal";
 
 export default function CategoriesPage() {
+  const user = JSON.parse(localStorage.getItem("user"))
   const [categories, setCategories] = useState([]);
   const [addCategory, setAddCategory] = useState();
   const [editCategory, setEditCategory] = useState();
@@ -61,7 +62,9 @@ export default function CategoriesPage() {
       const newCategory = await categoryService.createCategory(category);
       setIsSuccess(true);
       setMessage(newCategory.message);
-      setCategories((prev) => [...prev, category]);
+      setCategories((prev) => {
+        return [...prev, newCategory];
+      });
     } catch (err) {
       setIsError(true);
       setMessage(err);
@@ -88,9 +91,9 @@ export default function CategoriesPage() {
 
   const removeCategory = async (category) => {
     try {
-      const newCategory = await categoryService.deleteCategory(category.id);
+      const newBlog = await categoryService.deleteCategory(category.id);
       setIsSuccess(true);
-      setMessage(newCategory.message);
+      setMessage(newBlog.message);
       setCategories((prev) => prev.filter((x) => x.id !== category.id));
     } catch (err) {
       setIsError(true);
@@ -100,6 +103,7 @@ export default function CategoriesPage() {
   };
 
   const AddButton = () => {
+    if(!user?.token) return null;
     return (
       <button className="btn btn-outline-dark h-75" onClick={onCategoryAdd}>
         ADD CATEGORY

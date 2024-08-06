@@ -14,6 +14,7 @@ export default function AddEditBlogModal({
   updateBlog,
   onClose,
 }) {
+  const user = JSON.parse(localStorage.getItem("user"));
   const [blog, setBlog] = useState();
 
   const modalEl = document.getElementById("addEditModal");
@@ -51,7 +52,7 @@ export default function AddEditBlogModal({
       description: "",
       categories: [],
       content: [],
-      authorId: "",
+      authorId: user?.id,
     });
   };
 

@@ -17,6 +17,7 @@ import blogService from "../../services/blogService";
 import categoryService from "../../services/categoryService";
 
 export default function BlogsPage() {
+  const user = JSON.parse(localStorage.getItem("user"))
   const { categoryId } = useParams();
 
   const [blogs, setBlogs] = useState([]);
@@ -56,13 +57,7 @@ export default function BlogsPage() {
       title: "",
       description: "",
       categories: [],
-      author: {
-        id: 1,
-        firstName: "Byron",
-        lastName: "de Villiers",
-        bio: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        image: "https://storage.googleapis.com/ix-blog-app/download.png",
-      },
+      author: user._id,
       content: [
         {
           sectionHeader: "",
@@ -75,6 +70,10 @@ export default function BlogsPage() {
   const onBlogUpdate = (blog) => {
     setEditBlog(blog);
   };
+
+  const onBlogDelete = (blog) => {
+    setDeleteBlog(blog);
+  }
 
   const createBlog = async (blog) => {
     try {
@@ -140,6 +139,7 @@ export default function BlogsPage() {
   };
 
   const AddButton = () => {
+    if(!user?.token) return null;
     return (
       <button className="btn btn-outline-dark h-75" onClick={onBlogAdd}>
         ADD BLOG

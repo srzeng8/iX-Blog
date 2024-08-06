@@ -15,9 +15,9 @@ import Loading from "../../components/Loading";
 
 export default function Home() {
   const [loading, setLoading] = useState();
-  const [isSuccess, setIsSuccess] = useState();
+  const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState();
-  const [message, setMessage] = useState();
+  const [message, setMessage] = useState("");
   const [blogs, setBlogs] = useState();
   const [categories, setCategories] = useState();
 

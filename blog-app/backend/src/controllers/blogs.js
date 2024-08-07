@@ -65,6 +65,22 @@ const getBlogsByCategoryID = async (req, res) => {
   }
 };
 
+const getBlogsByAuthorId = async (req, res) => {
+  try {
+    const authorId = req.params.id;
+    const blogs = await Blog.find({ author: authorId }).populate({
+      path: "categoryIds",
+    });
+    if (blogs.length > 0) {
+      res.status(200).json({ message: "Return blogs by author ID!", data: blogs });
+    } else {
+      res.status(404).json({ message: "No blogs found for this author!", data: {} });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message, data: {} });
+  }
+};
+
 const updateBlogByID = async (req, res) => {
   console.log(req.body);
   try {
@@ -111,6 +127,7 @@ const blogController = {
   getBlogs,
   getBlogById,
   getBlogsByCategoryID,
+  getBlogsByAuthorId,  // Add this function to the export
   updateBlogByID,
   deleteBlogByID,
 };

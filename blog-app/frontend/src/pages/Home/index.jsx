@@ -53,7 +53,7 @@ export default function Home() {
         <SubHeading subHeading={"Categories"} />
         <CategoriesList categories={categories} />
         <Footer />
-        <SuccessToast
+        {/* <SuccessToast
           show={isSuccess}
           message={message}
           onClose={() => {
@@ -66,7 +66,7 @@ export default function Home() {
           onClose={() => {
             setIsError(false);
           }}
-        />
+        /> */}
       </div>
     </>
   );

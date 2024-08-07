@@ -1,28 +1,36 @@
-// const express = require("express");
-// const router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-// const blogController = require("../controllers/blogs");
+const blogController = require("../controllers/blogs");
 
-// const { protect } = require("../middleware/authMiddleware");
+const { protect } = require("../middleware/authMiddleware");
 
-// router.post("/", protect, (req, res) => {
-//   createBlog(req, res);
-// });
+router.post("/", (req, res) => {
+  blogController.createBlogs(req, res);  // Fix function name
+});
 
-// router.get("/", (req, res) => {
-//   getBlogs(req, res);
-// });
+router.get("/", (req, res) => {
+  blogController.getBlogs(req, res);
+});
 
-// router.get("/:id", (req, res) => {
-//   getBlog(req, res);
-// });
+router.get("/:id", (req, res) => {
+  blogController.getBlogById(req, res);
+});
 
-// router.put("/:id", protect, (req, res) => {
-//   updateBlog(req, res);
-// });
+router.get("/category/:id", (req, res) => {
+  blogController.getBlogsByCategoryID(req, res);  // Fix function name
+});
 
-// router.delete("/:id", protect, (req, res) => {
-//   deleteBlog(req, res);
-// });
+router.get("/author/:id", (req, res) => {
+  blogController.getBlogsByAuthorId(req, res);  // Fix function name
+});
 
-// module.exports = router;
+router.put("/:id", protect, (req, res) => {
+  blogController.updateBlogByID(req, res);  // Fix function name
+});
+
+router.delete("/:id", protect, (req, res) => {
+  blogController.deleteBlogByID(req, res);  // Fix function name
+});
+
+module.exports = router;

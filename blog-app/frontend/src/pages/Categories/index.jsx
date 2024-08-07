@@ -20,8 +20,8 @@ export default function CategoriesPage() {
   const [deleteCategory, setDeleteCategory] = useState();
 
   const [loading, setLoading] = useState();
-  const [message, setMessage] = useState();
-  const [isSuccess, setIsSuccess] = useState();
+  const [message, setMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState();
 
   useEffect(() => {
